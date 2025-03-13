@@ -14,7 +14,8 @@ export default function App() {
     document.title = `Cocktails: (${slides.length})`
   }, [slides.length])
 
-  const selectedSlide = cocktails.find((s) => s.id === selectedSlideId) || cocktails[0];
+  const selectedSlide = slides.find((s) => s.id === selectedSlideId) || slides[0];
+
 
   const addBlankSlide = () => {
     console.log("Before adding:", slides);
