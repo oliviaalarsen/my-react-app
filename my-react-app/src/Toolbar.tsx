@@ -7,11 +7,12 @@ import { Cocktail } from "./cocktailsData";
 
 type ToolbarProps = {
   updateNotes: (id: number, newNotes: string) => void;
+  updateCocktail: (id: number, updatedData: Partial<Cocktail>) => void;
   selectedSlide: Cocktail | null;
 }
 
 // Toolbar Component: Displays buttons for different actions
-export default function Toolbar({ updateNotes, selectedSlide }: ToolbarProps) {
+export default function Toolbar({ updateNotes, selectedSlide, updateCocktail }: ToolbarProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
@@ -34,6 +35,7 @@ export default function Toolbar({ updateNotes, selectedSlide }: ToolbarProps) {
         <Modal.Body>
           <CocktailForm 
             updateNotes={updateNotes}
+            updateCocktail={updateCocktail}
             selectedSlide={selectedSlide || undefined} 
             handleClose={handleCloseModal} 
           />

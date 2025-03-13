@@ -4,13 +4,14 @@ import { Cocktail } from "./cocktailsData";
 type Props = {
     updateNotes: (id: number, newNotes: string) => void;
     selectedSlide?: Cocktail;
+    updateCocktail: (id: number, updatedData: Partial<Cocktail>) => void;
     handleClose: () => void;
 };
 
-export default function CocktailForm({ 
-    updateNotes, 
+export default function CocktailForm({  
     selectedSlide, 
     handleClose, 
+    updateCocktail
 }: Props) {
 
     const [formValues, setFormValues] = useState({
@@ -30,14 +31,11 @@ export default function CocktailForm({
         const handleSubmit = (event: MouseEvent<HTMLButtonElement>) => {
             event.preventDefault();
             if (selectedSlide?.id !== undefined) {
-                updateNotes(selectedSlide.id, formValues.notes);
-                selectedSlide.name = formValues.name;
-                selectedSlide.glass = formValues.glass;
-                selectedSlide.ingredients = formValues.ingredients;
-                selectedSlide.method = formValues.method;
+                updateCocktail(selectedSlide.id, formValues);
             }            
             handleClose();
         };
+     
         
     return (
         <form>
