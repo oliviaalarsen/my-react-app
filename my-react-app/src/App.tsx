@@ -2,21 +2,24 @@ import Toolbar from "./Toolbar"; // Top navigation bar
 import Sidebar from "./Sidebar"; // Sidebar for navigation/input
 import SlideView from "./SlideView"; // Grid layout for displaying cocktails
 import { cocktails } from "./cocktailsData"; // Import static cocktail data
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import blankThumbnail from "./assets/whiskey-glass-solid.svg"
 
 export default function App() {
 
   const [slides, setSlides] = useState(cocktails)
-
   const [selectedSlideId, setSelectedSlideId] = useState(0)
+
+  useEffect(() => {
+    document.title = `Cocktails: (${slides.length})`
+  }, [slides.length])
 
   const selectedSlide = cocktails.find((s) => s.id === selectedSlideId) || cocktails[0];
 
   const addBlankSlide = () => {
     console.log("Before adding:", slides);
   
-    const maxId = slides.length > 0 ? Math.max(...slides.map(slide => slide.id)) : 0; // ✅ Find highest existing ID
+    const maxId = slides.length > 0 ? Math.max(...slides.map(slide => slide.id)) : 0; // Find highest existing ID
     const blankSlide = {
       id: maxId + 1,
       name: "New Cocktail",
@@ -43,18 +46,17 @@ export default function App() {
     console.log("After deleting:", updatedSlides);
   };
   
-
-  const updateGlassType = (newGlassType: string) => {
+  const updateNotes = (id: number, newNotes: string) => {
     setSlides(slides.map(slide =>
-      slide.id === selectedSlideId ? { ...slide, glass: newGlassType } : slide
+      slide.id === id ? { ...slide, notes: newNotes } : slide
     ));
   };
   
 
   return (
     <div className="d-flex bg-light flex-column vh-100">
-        <Toolbar addBlankSlide={addBlankSlide}
-                 updateGlassType={updateGlassType}
+        <Toolbar updateNotes={updateNotes} 
+                 selectedSlide={selectedSlide} 
                  />
         <div className="d-flex">
         <Sidebar  slides={slides} 
@@ -64,7 +66,9 @@ export default function App() {
                   addBlankSlide={addBlankSlide} 
                 />
 
-        <SlideView slide={selectedSlide} />
+        <SlideView slide={selectedSlide}
+                   updateNotes={updateNotes}
+                  />
       </div>
     </div>
   );

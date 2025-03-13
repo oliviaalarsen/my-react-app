@@ -7,13 +7,13 @@ import oldFashioned from "./assets/oldFashioned.png";
 // imports and exports to be used across different files
 
 export interface Cocktail {
-    id: number;
-    name: string;
-    glass: string;
-    image: string;
-    ingredients: string;
-    method: string;
-    notes: string;
+    id: number
+    name: string
+    glass: string
+    image: string
+    ingredients: string
+    method: string
+    notes: string
   }
 
 //   cocktails array to display info on recipe cards

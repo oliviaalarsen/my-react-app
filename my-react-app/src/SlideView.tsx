@@ -16,11 +16,12 @@ interface SlideViewProps {
     method: string;
     notes: string;
   };
+  updateNotes: (id: number, newNotes: string) => void;
 }
 
 
 // SlideView Component: Displays detailed information about the selected cocktail
-export default function SlideView({ slide }: SlideViewProps) {
+export default function SlideView({ slide, updateNotes }: SlideViewProps) {
   let slideHeight = 400
   return (
     <div className="flex-grow-1 p-3">
@@ -37,6 +38,13 @@ export default function SlideView({ slide }: SlideViewProps) {
       <p><strong>Notes:</strong> {slide?.notes}</p>
     </div>
     </div>
+    <div>
+          <textarea
+              className="form-control"
+              value={slide?.notes || ""}
+              onChange={(e) => slide && updateNotes(slide.id, e.target.value)}
+            />
+        </div>
     </div>
   );
 }
